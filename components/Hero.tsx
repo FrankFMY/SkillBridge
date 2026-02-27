@@ -70,7 +70,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="hidden sm:block relative h-80 lg:h-96"
+          className="hidden sm:block relative h-80 lg:h-96 overflow-hidden"
         >
           {avatars.map((av, i) => (
             <div

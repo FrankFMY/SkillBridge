@@ -47,7 +47,7 @@ export default function HowItWorks() {
         </motion.div>
 
         <div className="relative grid lg:grid-cols-3 gap-10 lg:gap-16">
-          <div className="hidden lg:block absolute top-16 left-[20%] right-[20%] h-0.5 border-t-2 border-dashed border-gray-300" />
+          <div className="hidden lg:block absolute top-6 left-[20%] right-[20%] h-0.5 border-t-2 border-dashed border-gray-300" />
 
           {steps.map((step, i) => (
             <motion.div

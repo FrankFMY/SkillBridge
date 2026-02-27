@@ -61,7 +61,7 @@ export default function Reviews() {
   useEffect(() => {
     const id = setInterval(() => {
       setDirection(1);
-      setActive((prev) => (prev + 1) % reviews.length);
+      setActive((cur) => (cur + 1) % reviews.length);
     }, 5000);
     return () => clearInterval(id);
   }, []);
@@ -95,7 +95,7 @@ export default function Reviews() {
             <ChevronLeft size={20} />
           </button>
 
-          <div className="overflow-hidden px-4">
+          <div className="overflow-hidden px-4 min-h-[18rem] sm:min-h-[16rem]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={active}
