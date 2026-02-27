@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import Image from "next/image";
@@ -50,32 +50,26 @@ export default function Reviews() {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  const go = useCallback(
-    (next: number) => {
-      setDirection(next > active ? 1 : -1);
-      setActive(next);
-    },
-    [active],
-  );
+  const go = (next: number) => {
+    setDirection(next > active ? 1 : -1);
+    setActive(next);
+  };
 
-  const next = useCallback(
-    () => go((active + 1) % reviews.length),
-    [active, go],
-  );
-  const prev = useCallback(
-    () => go((active - 1 + reviews.length) % reviews.length),
-    [active, go],
-  );
+  const next = () => go((active + 1) % reviews.length);
+  const prev = () => go((active - 1 + reviews.length) % reviews.length);
 
   useEffect(() => {
-    const id = setInterval(next, 5000);
+    const id = setInterval(() => {
+      setDirection(1);
+      setActive((prev) => (prev + 1) % reviews.length);
+    }, 5000);
     return () => clearInterval(id);
-  }, [next]);
+  }, []);
 
   const review = reviews[active];
 
   return (
-    <section id="reviews" className="py-20 lg:py-28 px-5 lg:px-8">
+    <section id="reviews" className="py-20 lg:py-28 px-5 lg:px-8 overflow-x-clip">
       <div className="mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -95,7 +89,7 @@ export default function Reviews() {
         <div className="relative max-w-2xl mx-auto">
           <button
             onClick={prev}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-14 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-navy-light hover:border-orange hover:text-orange transition-colors shadow-sm"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 lg:-translate-x-14 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-navy-light hover:border-orange hover:text-orange transition-colors shadow-sm"
             aria-label="Previous review"
           >
             <ChevronLeft size={20} />
@@ -146,7 +140,7 @@ export default function Reviews() {
 
           <button
             onClick={next}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-14 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-navy-light hover:border-orange hover:text-orange transition-colors shadow-sm"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 lg:translate-x-14 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-navy-light hover:border-orange hover:text-orange transition-colors shadow-sm"
             aria-label="Next review"
           >
             <ChevronRight size={20} />
